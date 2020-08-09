@@ -21,7 +21,7 @@ const UserItem = (props) => {
   );
 };
 
-UserItem.prototype = {
+UserItem.propTypes = {
   user: PropTypes.object.isRequired,
 };
 

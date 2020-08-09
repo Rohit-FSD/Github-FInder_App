@@ -2,7 +2,7 @@
 
 /* Global Styles */
 :root {
-  --primary-color: #dc3545;
+  --primary-color: #00bcd4;
   --dark-color: #333333;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
@@ -46,6 +46,10 @@ img {
   margin: auto;
   overflow: hidden;
   padding: 0 2rem;
+}
+
+.github-icon {
+  margin-right: 10px;
 }
 
 /* Text Styles*/
