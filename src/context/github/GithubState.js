@@ -31,11 +31,16 @@ const GithubState = (props) => {
 
   const [state, dispatch] = useReducer(GithubReducer, initialState);
 
+  const github = axios.create({
+    baseURL: "https://api.github.com",
+    timeout: 1000,
+    headers: { Authorization: process.env.REACT_APP_GITHUB_TOKEN },
+  });
+
   // Search Users
   const searchUsers = async (text) => {
     setLoading();
-
-    const res = await axios.get(
+    const res = await github.get(
       `https://api.github.com/search/users?q=${text}&client_id=${githubClientId}&client_secret=${githubClientSecret}`
     );
 
@@ -49,21 +54,25 @@ const GithubState = (props) => {
   const getUser = async (username) => {
     setLoading();
 
-    const res = await axios.get(
-      `https://api.github.com/users/${username}?client_id=${githubClientId}&client_secret=${githubClientSecret}`
-    );
+    try {
+      const res = await github.get(
+        `https://api.github.com/users/${username}?client_id=${githubClientId}&client_secret=${githubClientSecret}`
+      );
 
-    dispatch({
-      type: GET_USER,
-      payload: res.data,
-    });
+      dispatch({
+        type: GET_USER,
+        payload: res.data,
+      });
+    } catch (error) {
+      dispatch({ type: CLEAR_USERS });
+    }
   };
 
   // Get Repos
   const getUserRepos = async (username) => {
     setLoading();
 
-    const res = await axios.get(
+    const res = await github.get(
       `https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${githubClientId}&client_secret=${githubClientSecret}`
     );
 

@@ -11,7 +11,7 @@ const Search = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (text === "") {
-      alertContext.setAlert("Please enter something", "light");
+      alertContext.setAlert("Please enter something", "danger");
     } else {
       githubContext.searchUsers(text);
       setText("");
@@ -26,14 +26,14 @@ const Search = () => {
         <input
           type="text"
           name="text"
-          placeholder="Search Users..."
+          placeholder="Search Users"
           value={text}
           onChange={onChange}
         />
         <input
           type="submit"
           value="Search"
-          className="btn btn-dark btn-block"
+          className="btn btn-primary btn-block"
         />
       </form>
       {githubContext.users.length > 0 && (
